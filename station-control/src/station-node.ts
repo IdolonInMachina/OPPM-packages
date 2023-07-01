@@ -29,6 +29,7 @@ function getSideWithInput(redstone: OC.Components.Redstone): number {
 interface MappedInputs {
     [key: string]: number;
 }
+const mappedInputs: MappedInputs = {}
 
 function configureRedstoneInputs() {
     if (!component.isAvailable("redstone")) {
@@ -37,7 +38,6 @@ function configureRedstoneInputs() {
     }
     const redstone = component.redstone;
     const inputsNeeded: string[] = ["trainReady","sendTrain","requestTrain"];
-    const mappedInputs: MappedInputs = {}
     for (const input of inputsNeeded) {
         print(`Please connect a redstone input to the side that should correspond to ${input}`)
         mappedInputs[input] = getSideWithInput(component.redstone);
@@ -49,4 +49,16 @@ function configureRedstoneInputs() {
     for (const [key, value] of Object.entries(mappedInputs)) {
         print(`${key}: ${value}`)
     }
+
+    return true;
 }
+
+function startup() {
+    configureRedstoneInputs();
+}
+
+function main() {
+    startup();
+}
+
+main();

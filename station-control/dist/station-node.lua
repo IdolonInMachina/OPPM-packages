@@ -39,6 +39,7 @@ local function getSideWithInput(self, redstone)
     computer.beep("../")
     return match
 end
+local mappedInputs = {}
 local function configureRedstoneInputs(self)
     if not component.isAvailable("redstone") then
         print("No redstone IO found. Please connect a Redstone IO block to the network and restart.")
@@ -46,7 +47,6 @@ local function configureRedstoneInputs(self)
     end
     local redstone = component.redstone
     local inputsNeeded = {"trainReady", "sendTrain", "requestTrain"}
-    local mappedInputs = {}
     for ____, input in ipairs(inputsNeeded) do
         print("Please connect a redstone input to the side that should correspond to " .. input)
         mappedInputs[input] = getSideWithInput(nil, component.redstone)
@@ -59,5 +59,13 @@ local function configureRedstoneInputs(self)
         local value = ____value[2]
         print((key .. ": ") .. tostring(value))
     end
+    return true
 end
+local function startup(self)
+    configureRedstoneInputs(nil)
+end
+local function main(self)
+    startup(nil)
+end
+main(nil)
 return ____exports
