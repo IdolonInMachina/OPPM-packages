@@ -6,22 +6,23 @@ os.execute("mkdir -p /usr/bin/station-control")
 os.execute("rm -f /usr/bin/station-control/*.lua")
 
 -- Download new files
-os.execute("wget https://raw.githubusercontent.com/IdolonInMachina/OPPM-packages/master/station-control/dist/main-controller.lua -O /usr/bin/station-control/main-controller.lua")
-os.execute("wget https://raw.githubusercontent.com/IdolonInMachina/OPPM-packages/master/station-control/dist/main.lua -O /usr/bin/station-control/main.lua")
-os.execute("wget https://raw.githubusercontent.com/IdolonInMachina/OPPM-packages/master/station-control/dist/relay-node.lua -O /usr/bin/station-control/relay-node.lua")
-os.execute("wget https://raw.githubusercontent.com/IdolonInMachina/OPPM-packages/master/station-control/dist/station-node.lua -O /usr/bin/station-control/station-node.lua")
+os.execute("wget https://raw.githubusercontent.com/IdolonInMachina/OPPM-packages/master/station-control/dist/main.lua -O /usr/bin/station-control.lua")
+
+os.execute("wget https://raw.githubusercontent.com/IdolonInMachina/OPPM-packages/master/station-control/dist/main-controller.lua -O /usr/lib/main-controller.lua")
+os.execute("wget https://raw.githubusercontent.com/IdolonInMachina/OPPM-packages/master/station-control/dist/relay-node.lua -O /usr/lib/relay-node.lua")
+os.execute("wget https://raw.githubusercontent.com/IdolonInMachina/OPPM-packages/master/station-control/dist/station-node.lua -O /usr/lib/station-node.lua")
 
 -- Download  library files
-os.execute("wget https://raw.githubusercontent.com/IdolonInMachina/OPPM-packages/master/station-control/dist/lualib_bundle.lua -O /usr/bin/station-control/lualib_bundle.lua")
-os.execute("wget https://raw.githubusercontent.com/IdolonInMachina/OPPM-packages/master/station-control/src/json.lua -O /usr/bin/station-control/json.lua")
+os.execute("wget https://raw.githubusercontent.com/IdolonInMachina/OPPM-packages/master/station-control/dist/lualib_bundle.lua -O /usr/lib/lualib_bundle.lua")
+os.execute("wget https://raw.githubusercontent.com/IdolonInMachina/OPPM-packages/master/station-control/src/json.lua -O /usr/lib/json.lua")
 
 -- Copy library files to /lib
-os.execute("cp /usr/bin/station-control/lualib_bundle.lua /lib/lualib_bundle.lua")
-os.execute("cp /usr/bin/station-control/json.lua /lib/json.lua")
+os.execute("cp /usr/lib/station-control/lualib_bundle.lua /lib/lualib_bundle.lua")
+os.execute("cp /usr/lib/station-control/json.lua /lib/json.lua")
 
 
 local file_path = "/home/autorun.lua"
-local line_to_append = "/usr/bin/station-control/main.lua"
+local line_to_append = "/usr/bin/station-control.lua"
 
 -- Check if the file exists
 local file = io.open(file_path, "r")
