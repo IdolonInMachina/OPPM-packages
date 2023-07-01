@@ -1,5 +1,10 @@
 //import * as json from "json";
-import { decode } from "json";
+import { encode, decode } from "json";
+
+const controller = require('main-controller');
+const relay = require('relay-node');
+const station = require('station-node');
+
 const cfs = component.filesystem;
 
 function readFile(filename: string) {
@@ -22,18 +27,51 @@ function setup() {
         selected = tonumber(io.read());
     }
     print('Selected mode: ' + selected);
-    const jsonConfig: JSON = decode(readFile('stationcontrol.json')!);
-    print(jsonConfig);
-    //jsonConfig['mode'] = selected;
-    //io.write('stationcontrol.cfg', selected);
+    let config = {
+        'mode': selected,
+        'station_name': '',
+        'num_trains': -1,
+        'node_map': {
+
+        },
+        'station_map': {
+
+        },
+        'general_info_screen': '',
+        'debug_screen': ''
+    }
+    io.write('stationcontrol.json', encode(config));
+    return selected;
 }
 
 function main() {
+    let mode = -1;
     if (!cfs.exists('stationcontrol.cfg')) {
-        setup();
+        mode = setup();
     } else {
         print('Station Control is already installed...')
+        const jsonConfig: any = decode(readFile('stationcontrol.json')!);
+        mode = jsonConfig['mode'];
     }
+    switch (mode) {
+        case 1:
+            print('Running as main station controller...')
+            controller.main();
+            break;
+        case 2:
+            print('Running as linking node...')
+            relay.main();
+            break;
+        case 3:
+            print('Running as station node...')
+            station.main();
+            break;
+        default:
+            print('Invalid mode. Please reconfigure.')
+            main();
+            return;
+    }
+    print('Exiting...')
 }
 
 main();
