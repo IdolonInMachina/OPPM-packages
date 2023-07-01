@@ -1,6 +1,7 @@
 local ____lualib = require("lualib_bundle")
 local __TS__ArrayIncludes = ____lualib.__TS__ArrayIncludes
 local ____exports = {}
+local component = require("component")
 local ____json = require("json")
 local encode = ____json.encode
 local decode = ____json.decode
@@ -44,7 +45,7 @@ local function setup(self)
 end
 local function main(self)
     local mode = -1
-    if not cfs.exists("stationcontrol.cfg") then
+    if not cfs.exists("stationcontrol.json") then
         mode = setup(nil)
     else
         print("Station Control is already installed...")

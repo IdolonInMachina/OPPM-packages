@@ -1,4 +1,4 @@
-//import * as json from "json";
+import * as component from "component";
 import { encode, decode } from "json";
 
 const controller = require('main-controller');
@@ -46,7 +46,7 @@ function setup() {
 
 function main() {
     let mode = -1;
-    if (!cfs.exists('stationcontrol.cfg')) {
+    if (!cfs.exists('stationcontrol.json')) {
         mode = setup();
     } else {
         print('Station Control is already installed...')
