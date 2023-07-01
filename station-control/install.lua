@@ -1,11 +1,12 @@
 
 os.execute("mkdir -p /usr/bin/station-control")
-os.execute("wget https://raw.githubusercontent.com/StationControl/station-control/main/dist/main-controller.lua -O /usr/bin/station-control/main-controller.lua")
-os.execute("wget https://raw.githubusercontent.com/StationControl/station-control/main/dist/lualib_bundle.lua -O /usr/bin/station-control/lualib_bundle.lua")
-os.execute("wget https://raw.githubusercontent.com/StationControl/station-control/main/dist/main.lua -O /usr/bin/station-control/main.lua")
-os.execute("wget https://raw.githubusercontent.com/StationControl/station-control/main/dist/relay-node.lua -O /usr/bin/station-control/relay-node.lua")
-os.execute("wget https://raw.githubusercontent.com/StationControl/station-control/main/dist/station-node.lua -O /usr/bin/station-control/station-node.lua")
-os.execute("wget https://raw.githubusercontent.com/StationControl/station-control/main/src/json.lua -O /usr/bin/station-control/json.lua")
+os.execute("wget https://raw.githubusercontent.com/IdolonInMachina/OPPM-packages/master/station-control/dist/main-controller.lua -O /usr/bin/station-control/main-controller.lua")
+os.execute("wget https://raw.githubusercontent.com/IdolonInMachina/OPPM-packages/master/station-control/dist/lualib_bundle.lua -O /usr/bin/station-control/lualib_bundle.lua")
+os.execute("wget https://raw.githubusercontent.com/IdolonInMachina/OPPM-packages/master/station-control/dist/main.lua -O /usr/bin/station-control/main.lua")
+os.execute("wget https://raw.githubusercontent.com/IdolonInMachina/OPPM-packages/master/station-control/dist/relay-node.lua -O /usr/bin/station-control/relay-node.lua")
+os.execute("wget https://raw.githubusercontent.com/IdolonInMachina/OPPM-packages/master/station-control/dist/station-node.lua -O /usr/bin/station-control/station-node.lua")
+os.execute("wget https://raw.githubusercontent.com/IdolonInMachina/OPPM-packages/master/station-control/src/json.lua -O /usr/bin/station-control/json.lua")
+
 
 
 local file_path = "/home/autorun.lua"
