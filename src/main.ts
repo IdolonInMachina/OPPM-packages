@@ -1,6 +1,13 @@
 import * as json from "json";
 const cfs = component.filesystem;
 
+function readFile(filename: string) {
+    const f = io.open(filename, 'rb')[0]!;
+    const content = f.read('*a');
+    f.close();
+    return content;
+}
+
 function setup() {
     print('Station Control is running for the first time...');
     print('To install, please select a mode:')
@@ -14,7 +21,7 @@ function setup() {
         selected = tonumber(io.read());
     }
     print('Selected mode: ' + selected);
-    const configFile = io.open('stationcontrol.cfg', 'w');
+    const jsonConfig = json.decode(readFile('stationcontrol.json')!);
     io.write('stationcontrol.cfg', selected);
 }
 
