@@ -36,6 +36,7 @@ local function getSideWithInput(self, redstone)
         print("No inputs found. Please connect an input to the network and restart.")
         return -1
     end
+    computer.beep("../")
     return match
 end
 local function configureRedstoneInputs(self)
@@ -51,6 +52,7 @@ local function configureRedstoneInputs(self)
         mappedInputs[input] = getSideWithInput(nil, component.redstone)
         print((("Got input " .. input) .. " on side ") .. tostring(mappedInputs[input]))
     end
+    computer.beep("//.")
     print("DEBUG:")
     for ____, ____value in ipairs(__TS__ObjectEntries(mappedInputs)) do
         local key = ____value[1]
