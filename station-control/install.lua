@@ -9,9 +9,6 @@ os.execute("rm -f /usr/lib/station-control/*.lua")
 function deleteFileIfExists(filePath)
   if fs.exists(filePath) then
       fs.remove(filePath)
-      print("File deleted:", filePath)
-  else
-      print("File does not exist:", filePath)
   end
 end
 
