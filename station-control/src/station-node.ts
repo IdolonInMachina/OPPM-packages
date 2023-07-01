@@ -17,12 +17,13 @@ function getSideWithInput(redstone: OC.Components.Redstone): number {
                 }
             }
         }
+        os.sleep(0.1);
     }
     if (match === undefined) {
         print("No inputs found. Please connect an input to the network and restart.")
         return -1;
     }
-    computer.beep('../');
+    computer?.beep('../');
     return match;
 }
 
@@ -43,7 +44,7 @@ function configureRedstoneInputs() {
         mappedInputs[input] = getSideWithInput(component.redstone);
         print(`Got input ${input} on side ${mappedInputs[input]}`)
     }
-    computer.beep('//.')
+    computer?.beep('//.')
 
     print("DEBUG:")
     for (const [key, value] of Object.entries(mappedInputs)) {
