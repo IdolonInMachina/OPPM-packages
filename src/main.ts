@@ -1,4 +1,4 @@
-
+import * as json from "json";
 const cfs = component.filesystem;
 
 function setup() {

@@ -1,4 +1,5 @@
---[[ Generated with https://github.com/TypeScriptToLua/TypeScriptToLua ]]
+local ____lualib = require("lualib_bundle")
+local __TS__Iterator = ____lualib.__TS__Iterator
 local ____exports = {}
 local component = require("component")
 local ____event = require("event")
@@ -13,7 +14,9 @@ local function startup()
     end
     local selectedModem = nil
     local numModems = 0
-    for address, name in component.list() do
+    for ____, ____value in __TS__Iterator(component.list()) do
+        local address = ____value[1]
+        local name = ____value[2]
         if name == "modem" then
             numModems = numModems + 1
         end

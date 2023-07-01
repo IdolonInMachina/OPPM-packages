@@ -19,11 +19,13 @@
   },
   "homepage": "https://github.com/IdolonInMachina/mc-station-control#readme",
   "devDependencies": {
+    "@opct/common": "^0.1.3",
     "@opct/openos": "^0.1.3",
-    "typescript-to-lua": "^1.16.2",
-    "@opct/common": "^0.1.3"
+    "tstl-json-lua": "^0.0.0",
+    "typescript-to-lua": "^1.16.2"
   },
   "description": "",
   "dependencies": {
+    "json.lua": "rxi/json.lua"
   }
 }
