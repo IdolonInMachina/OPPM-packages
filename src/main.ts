@@ -1,4 +1,5 @@
-import * as json from "json";
+//import * as json from "json";
+import { decode } from "json";
 const cfs = component.filesystem;
 
 function readFile(filename: string) {
@@ -21,8 +22,10 @@ function setup() {
         selected = tonumber(io.read());
     }
     print('Selected mode: ' + selected);
-    const jsonConfig = json.decode(readFile('stationcontrol.json')!);
-    io.write('stationcontrol.cfg', selected);
+    const jsonConfig: JSON = decode(readFile('stationcontrol.json')!);
+    print(jsonConfig);
+    //jsonConfig['mode'] = selected;
+    //io.write('stationcontrol.cfg', selected);
 }
 
 function main() {

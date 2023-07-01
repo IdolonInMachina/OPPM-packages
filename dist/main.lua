@@ -1,6 +1,8 @@
---[[ Generated with https://github.com/TypeScriptToLua/TypeScriptToLua ]]
+local ____lualib = require("lualib_bundle")
+local __TS__ArrayIncludes = ____lualib.__TS__ArrayIncludes
 local ____exports = {}
-local json = require("json")
+local ____json = require("json")
+local decode = ____json.decode
 local cfs = component.filesystem
 local function readFile(self, filename)
     local f = (io.open(filename, "rb"))
@@ -16,13 +18,13 @@ local function setup(self)
     print("\t3. Station node.")
     local validOptions = {1, 2, 3}
     local selected = tonumber(io.read())
-    while selected == nil or not validOptions:includes(selected) do
+    while selected == nil or not __TS__ArrayIncludes(validOptions, selected) do
         print("Invalid option. Please select a mode:\t")
         selected = tonumber(io.read())
     end
     print("Selected mode: " .. tostring(selected))
-    local jsonConfig = json.decode(readFile(nil, "stationcontrol.json"))
-    io.write("stationcontrol.cfg", selected)
+    local jsonConfig = decode(readFile(nil, "stationcontrol.json"))
+    print(jsonConfig)
 end
 local function main(self)
     if not cfs.exists("stationcontrol.cfg") then

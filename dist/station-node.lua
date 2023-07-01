@@ -1,5 +1,5 @@
 local ____lualib = require("lualib_bundle")
-local __TS__Iterator = ____lualib.__TS__Iterator
+local __TS__ObjectEntries = ____lualib.__TS__ObjectEntries
 local ____exports = {}
 local ____sides = require("sides")
 local front = ____sides.front
@@ -13,7 +13,7 @@ local function getSideWithInput(self, redstone)
     local found = false
     local match = nil
     while not found do
-        for ____, side in __TS__Iterator({
+        for ____, side in ipairs({
             bottom,
             top,
             back,
@@ -46,16 +46,16 @@ local function configureRedstoneInputs(self)
     local redstone = component.redstone
     local inputsNeeded = {"trainReady", "sendTrain", "requestTrain"}
     local mappedInputs = {}
-    for ____, input in __TS__Iterator(inputsNeeded) do
-        print("Please connect a redstone input to the side that should correspond to " .. tostring(input))
+    for ____, input in ipairs(inputsNeeded) do
+        print("Please connect a redstone input to the side that should correspond to " .. input)
         mappedInputs[input] = getSideWithInput(nil, component.redstone)
-        print((("Got input " .. tostring(input)) .. " on side ") .. tostring(mappedInputs[input]))
+        print((("Got input " .. input) .. " on side ") .. tostring(mappedInputs[input]))
     end
     print("DEBUG:")
-    for ____, ____value in __TS__Iterator(Object:entries(mappedInputs)) do
+    for ____, ____value in ipairs(__TS__ObjectEntries(mappedInputs)) do
         local key = ____value[1]
         local value = ____value[2]
-        print((tostring(key) .. ": ") .. tostring(value))
+        print((key .. ": ") .. tostring(value))
     end
 end
 return ____exports
