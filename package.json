@@ -24,8 +24,8 @@
     "tstl-json-lua": "^0.0.0",
     "typescript-to-lua": "^1.16.2"
   },
-  "description": "",
   "dependencies": {
-    "json.lua": "rxi/json.lua"
-  }
+    "json.lua": "github:rxi/json.lua"
+  },
+  "description": ""
 }
