@@ -16,19 +16,18 @@ local function startup()
     for address, name in component.list() do
         if name == "modem" then
             numModems = numModems + 1
-            local modem = component.proxy(address)
-            modem:open(1458)
-            modem:broadcast(1458, "stationcontrol:areyoumain")
-            selectedModem = modem
         end
     end
-    if selectedModem == nil then
+    if not component.isAvailable("modem") then
         print("No network card found. Please install a network card and restart.")
         return false
     elseif numModems ~= 1 then
         print("There is an incorrect number of network cards found. Please install a single network card, and restart.")
         return false
     end
+    local modem = component.modem
+    modem.open(1458)
+    modem.broadcast(1458, "stationcontrol:areyoumain")
     local _, __, from, port, ___, message = pull("modem_message")
     print((((("Got a message from " .. from) .. " on port ") .. tostring(port)) .. ": ") .. tostring(message))
     local mainController = nil
