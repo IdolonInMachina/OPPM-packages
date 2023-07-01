@@ -1,6 +1,20 @@
 import { front, back, left, right, top, bottom } from "sides";
 import * as component from "component";
 
+interface MappedInputs {
+    [key: string]: number;
+}
+const mappedInputs: MappedInputs = {}
+
+function checkIfSideTaken(side: number) {
+    for (const [key, value] of Object.entries(mappedInputs)) {
+        if (value === side) {
+            print(`Side ${side} is already taken by ${key}`)
+            return true;
+        }
+    }
+    return false;
+}
 
 function getSideWithInput(redstone: OC.Components.Redstone): number {
     let found = false
@@ -8,6 +22,7 @@ function getSideWithInput(redstone: OC.Components.Redstone): number {
     while (!found) {
         for (const side of [bottom, top, back, front, left, right]) {
             if (redstone.getInput(side) > 0) {
+                if (checkIfSideTaken(side)) continue;
                 if (match === undefined) {
                     match = side;
                     found = true;
@@ -23,14 +38,10 @@ function getSideWithInput(redstone: OC.Components.Redstone): number {
         print("No inputs found. Please connect an input to the network and restart.")
         return -1;
     }
-    computer?.beep('../');
+    computer?.beep('./');
     return match;
 }
 
-interface MappedInputs {
-    [key: string]: number;
-}
-const mappedInputs: MappedInputs = {}
 
 function configureRedstoneInputs() {
     if (!component.isAvailable("redstone")) {
@@ -40,11 +51,13 @@ function configureRedstoneInputs() {
     const redstone = component.redstone;
     const inputsNeeded: string[] = ["trainReady","sendTrain","requestTrain"];
     for (const input of inputsNeeded) {
+        computer?.beep('.');
         print(`Please connect a redstone input to the side that should correspond to ${input}`)
         mappedInputs[input] = getSideWithInput(component.redstone);
         print(`Got input ${input} on side ${mappedInputs[input]}`)
+        os.sleep(2);
     }
-    computer?.beep('//.')
+    computer?.beep('//')
 
     print("DEBUG:")
     for (const [key, value] of Object.entries(mappedInputs)) {
