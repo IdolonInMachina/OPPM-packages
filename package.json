@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tstl --watch"
+    "build": "tstl",
+    "watch": "tstl --watch"
   },
   "repository": {
     "type": "git",
@@ -17,9 +18,9 @@
     "url": "https://github.com/IdolonInMachina/mc-station-control/issues"
   },
   "homepage": "https://github.com/IdolonInMachina/mc-station-control#readme",
-  "description": "",
   "devDependencies": {
     "@opct/openos": "^0.1.3",
     "typescript-to-lua": "^1.16.2"
-  }
+  },
+  "description": ""
 }
