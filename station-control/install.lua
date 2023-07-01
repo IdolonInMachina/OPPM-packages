@@ -1,11 +1,20 @@
 local fs = require("filesystem")
 -- Create folder if it doesn't exist
-os.execute("mkdir -p /usr/bin/station-control")
+os.execute("mkdir -p /usr/lib/station-control")
 
 -- Remove any old lua files in the directory
-os.execute("rm -f /usr/bin/station-control/*.lua")
+os.execute("rm -f /usr/lib/station-control/*.lua")
 
 -- Download new files
+function deleteFileIfExists(filePath)
+  if fs.exists(filePath) then
+      fs.remove(filePath)
+      print("File deleted:", filePath)
+  else
+      print("File does not exist:", filePath)
+  end
+end
+
 deleteFileIfExists("/usr/bin/station-control.lua")
 os.execute("wget https://raw.githubusercontent.com/IdolonInMachina/OPPM-packages/master/station-control/dist/main.lua -O /usr/bin/station-control.lua")
 
@@ -63,11 +72,3 @@ else
   print("Created autorun.lua, running station-control on startup.")
 end
 
-function deleteFileIfExists(filePath)
-  if fs.exists(filePath) then
-      fs.remove(filePath)
-      print("File deleted:", filePath)
-  else
-      print("File does not exist:", filePath)
-  end
-end
