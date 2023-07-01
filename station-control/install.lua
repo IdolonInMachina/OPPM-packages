@@ -1,4 +1,4 @@
-
+local fs = require("filesystem")
 -- Create folder if it doesn't exist
 os.execute("mkdir -p /usr/bin/station-control")
 
@@ -6,19 +6,33 @@ os.execute("mkdir -p /usr/bin/station-control")
 os.execute("rm -f /usr/bin/station-control/*.lua")
 
 -- Download new files
+deleteFileIfExists("/usr/bin/station-control.lua")
 os.execute("wget https://raw.githubusercontent.com/IdolonInMachina/OPPM-packages/master/station-control/dist/main.lua -O /usr/bin/station-control.lua")
 
-os.execute("wget https://raw.githubusercontent.com/IdolonInMachina/OPPM-packages/master/station-control/dist/main-controller.lua -O /usr/lib/main-controller.lua")
-os.execute("wget https://raw.githubusercontent.com/IdolonInMachina/OPPM-packages/master/station-control/dist/relay-node.lua -O /usr/lib/relay-node.lua")
-os.execute("wget https://raw.githubusercontent.com/IdolonInMachina/OPPM-packages/master/station-control/dist/station-node.lua -O /usr/lib/station-node.lua")
+os.execute("wget https://raw.githubusercontent.com/IdolonInMachina/OPPM-packages/master/station-control/dist/main-controller.lua -O /usr/lib/station-control/main-controller.lua")
+os.execute("wget https://raw.githubusercontent.com/IdolonInMachina/OPPM-packages/master/station-control/dist/relay-node.lua -O /usr/lib/station-control/relay-node.lua")
+os.execute("wget https://raw.githubusercontent.com/IdolonInMachina/OPPM-packages/master/station-control/dist/station-node.lua -O /usr/lib/station-control/station-node.lua")
 
 -- Download  library files
-os.execute("wget https://raw.githubusercontent.com/IdolonInMachina/OPPM-packages/master/station-control/dist/lualib_bundle.lua -O /usr/lib/lualib_bundle.lua")
-os.execute("wget https://raw.githubusercontent.com/IdolonInMachina/OPPM-packages/master/station-control/src/json.lua -O /usr/lib/json.lua")
+os.execute("wget https://raw.githubusercontent.com/IdolonInMachina/OPPM-packages/master/station-control/dist/lualib_bundle.lua -O /usr/lib/station-control/lualib_bundle.lua")
+os.execute("wget https://raw.githubusercontent.com/IdolonInMachina/OPPM-packages/master/station-control/src/json.lua -O /usr/lib/station-control/json.lua")
 
--- Copy library files to /lib
-os.execute("cp /usr/lib/station-control/lualib_bundle.lua /lib/lualib_bundle.lua")
-os.execute("cp /usr/lib/station-control/json.lua /lib/json.lua")
+-- Link library files to /lib
+local sourceDir = "/usr/lib/station-control/"
+local targetDir = "/usr/lib/"
+
+-- Get a list of files in the source directory
+local files = fs.list(sourceDir)
+
+-- Create symlinks for each Lua file
+for file in files do
+    if file:match("%.lua$") then
+        local sourcePath = sourceDir .. file
+        local targetPath = targetDir .. file
+        -- Create the symlink
+        os.execute(string.format("ln %s %s", sourcePath, targetPath))
+    end
+end
 
 
 local file_path = "/home/autorun.lua"
@@ -47,4 +61,13 @@ else
   file:write(line_to_append .. "\n")
   file:close()
   print("Created autorun.lua, running station-control on startup.")
+end
+
+function deleteFileIfExists(filePath)
+  if fs.exists(filePath) then
+      fs.remove(filePath)
+      print("File deleted:", filePath)
+  else
+      print("File does not exist:", filePath)
+  end
 end
