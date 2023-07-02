@@ -61,5 +61,4 @@ local function main(self)
     end
     return success
 end
-main(nil)
 return ____exports

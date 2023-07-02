@@ -40,5 +40,4 @@ local function main(self)
     local success = startup()
     return success
 end
-main(nil)
 return ____exports

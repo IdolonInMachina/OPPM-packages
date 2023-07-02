@@ -93,5 +93,4 @@ end
 local function main(self)
     startup(nil)
 end
-main(nil)
 return ____exports

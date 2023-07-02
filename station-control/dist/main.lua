@@ -32,11 +32,24 @@ local function setup(self)
         mode = selected,
         station_name = "",
         num_trains = -1,
+        main_station = false,
         node_map = {},
         station_map = {},
         general_info_screen = "",
         debug_screen = ""
     }
+    if selected == 3 then
+        print("Is this station a main hub that can spawn new trains? [ y / N ]: ")
+        local input = io.read()
+        while input ~= nil and not __TS__ArrayIncludes(
+            {"y", "n"},
+            string.lower(input)
+        ) do
+            print("Invalid option. Please enter either y or n: ")
+            input = io.read()
+        end
+        config.main_station = input == "y"
+    end
     io.write(
         "stationcontrol.json",
         encode(config)
@@ -53,21 +66,21 @@ local function main(self)
         mode = jsonConfig.mode
     end
     repeat
-        local ____switch8 = mode
-        local ____cond8 = ____switch8 == 1
-        if ____cond8 then
+        local ____switch10 = mode
+        local ____cond10 = ____switch10 == 1
+        if ____cond10 then
             print("Running as main station controller...")
             controller:main()
             break
         end
-        ____cond8 = ____cond8 or ____switch8 == 2
-        if ____cond8 then
+        ____cond10 = ____cond10 or ____switch10 == 2
+        if ____cond10 then
             print("Running as linking node...")
             relay:main()
             break
         end
-        ____cond8 = ____cond8 or ____switch8 == 3
-        if ____cond8 then
+        ____cond10 = ____cond10 or ____switch10 == 3
+        if ____cond10 then
             print("Running as station node...")
             station:main()
             break
