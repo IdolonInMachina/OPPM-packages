@@ -31,6 +31,7 @@ function setup() {
         'mode': selected,
         'station_name': '',
         'num_trains': -1,
+        'main_station': false,
         'node_map': {
 
         },
@@ -39,6 +40,15 @@ function setup() {
         },
         'general_info_screen': '',
         'debug_screen': ''
+    }
+    if (selected === 3) {
+        print("Is this station a main hub that can spawn new trains? [ y / N ]: ")
+        let input: string | undefined = io.read();
+        while (input!== undefined && !['y','n'].includes(input.toLowerCase())) {
+            print("Invalid option. Please enter either y or n: ")
+            input = io.read();
+        }
+        config.main_station = input === 'y';
     }
     io.write('stationcontrol.json', encode(config));
     return selected;
