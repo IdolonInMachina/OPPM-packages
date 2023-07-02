@@ -51,14 +51,14 @@ local function setup(self)
         config.main_station = input == "y"
     end
     io.write(
-        "stationcontrol.json",
+        "/home/.config/stationcontrol.json",
         encode(config)
     )
     return selected
 end
 local function main(self)
     local mode = -1
-    if not cfs.exists("stationcontrol.json") then
+    if not cfs.exists("/home/.config/stationcontrol.json") then
         mode = setup(nil)
     else
         print("Station Control is already installed...")

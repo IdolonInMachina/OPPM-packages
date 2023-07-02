@@ -50,13 +50,13 @@ function setup() {
         }
         config.main_station = input === 'y';
     }
-    io.write('stationcontrol.json', encode(config));
+    io.write('/home/.config/stationcontrol.json', encode(config));
     return selected;
 }
 
 function main() {
     let mode = -1;
-    if (!cfs.exists('stationcontrol.json')) {
+    if (!cfs.exists('/home/.config/stationcontrol.json')) {
         mode = setup();
     } else {
         print('Station Control is already installed...')
