@@ -56,6 +56,9 @@ function setup() {
 
 function main() {
     let mode = -1;
+    if (!cfs.exists('/home/.config')) {
+        os.execute('mkdir -p /home/.config');
+    }
     if (!cfs.exists('/home/.config/stationcontrol.json')) {
         mode = setup();
     } else {
