@@ -59,7 +59,10 @@ end
 local function main(self)
     local mode = -1
     if not cfs.exists("/home/.config") then
+        print("Config directory doesn't exist. Creating it...")
         os.execute("mkdir -p /home/.config")
+    else
+        print("Config directory already exists. Checking for config file...")
     end
     if not cfs.exists("/home/.config/stationcontrol.json") then
         mode = setup(nil)
@@ -69,21 +72,21 @@ local function main(self)
         mode = jsonConfig.mode
     end
     repeat
-        local ____switch11 = mode
-        local ____cond11 = ____switch11 == 1
-        if ____cond11 then
+        local ____switch12 = mode
+        local ____cond12 = ____switch12 == 1
+        if ____cond12 then
             print("Running as main station controller...")
             controller:main()
             break
         end
-        ____cond11 = ____cond11 or ____switch11 == 2
-        if ____cond11 then
+        ____cond12 = ____cond12 or ____switch12 == 2
+        if ____cond12 then
             print("Running as linking node...")
             relay:main()
             break
         end
-        ____cond11 = ____cond11 or ____switch11 == 3
-        if ____cond11 then
+        ____cond12 = ____cond12 or ____switch12 == 3
+        if ____cond12 then
             print("Running as station node...")
             station:main()
             break

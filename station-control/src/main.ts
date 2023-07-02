@@ -57,7 +57,11 @@ function setup() {
 function main() {
     let mode = -1;
     if (!cfs.exists('/home/.config')) {
+        print("Config directory doesn't exist. Creating it...")
         os.execute('mkdir -p /home/.config');
+    }
+    else {
+        print("Config directory already exists. Checking for config file...")
     }
     if (!cfs.exists('/home/.config/stationcontrol.json')) {
         mode = setup();
