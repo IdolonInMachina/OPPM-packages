@@ -90,7 +90,7 @@ end
 local function startup(self)
     configureRedstoneInputs(nil)
 end
-local function main(self)
+function ____exports.main(self)
     startup(nil)
 end
 return ____exports

@@ -71,6 +71,6 @@ function startup() {
     configureRedstoneInputs();
 }
 
-function main() {
+export function main() {
     startup();
 }

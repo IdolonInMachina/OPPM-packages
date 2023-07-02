@@ -36,7 +36,7 @@ function startup(this: void) {
     return true;
 }
 
-function main() {
+export function main() {
     let success = startup();
     return success;
 }

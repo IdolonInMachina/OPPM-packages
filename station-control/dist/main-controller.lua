@@ -54,7 +54,7 @@ local function mainLoop(self)
         end
     end
 end
-local function main(self)
+function ____exports.main(self)
     local success = startup(nil)
     if success then
         mainLoop(nil)

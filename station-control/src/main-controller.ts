@@ -52,7 +52,7 @@ function mainLoop() {
     }
 }
 
-function main() {
+export function main() {
     const success = startup();
     if (success) {
         mainLoop();

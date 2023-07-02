@@ -36,7 +36,7 @@ local function startup()
     end
     return true
 end
-local function main(self)
+function ____exports.main(self)
     local success = startup()
     return success
 end
