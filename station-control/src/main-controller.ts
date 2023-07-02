@@ -59,5 +59,3 @@ function main() {
     }
     return success
 }
-
-main();

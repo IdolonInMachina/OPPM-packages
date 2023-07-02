@@ -74,5 +74,3 @@ function startup() {
 function main() {
     startup();
 }
-
-main();

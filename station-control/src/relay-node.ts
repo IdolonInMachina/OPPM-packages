@@ -40,5 +40,3 @@ function main() {
     let success = startup();
     return success;
 }
-
-main();
