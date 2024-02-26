@@ -1,6 +1,7 @@
 local fs = require("filesystem")
 -- Create folder if it doesn't exist
 os.execute("mkdir -p /usr/lib/station-control")
+os.execute("mkdir -p /usr/bin")
 
 -- Remove any old lua files in the directory
 os.execute("rm -f /usr/lib/station-control/*.lua")
