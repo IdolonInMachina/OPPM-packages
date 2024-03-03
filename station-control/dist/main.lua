@@ -1,5 +1,3 @@
-local ____lualib = require("lualib_bundle")
-local __TS__ArrayIncludes = ____lualib.__TS__ArrayIncludes
 local ____exports = {}
 local component = require("component")
 local ____json = require("json")
@@ -23,7 +21,7 @@ local function setup(self)
     print("\t3. Station node.")
     local validOptions = {1, 2, 3}
     local selected = tonumber(io.read())
-    while selected == nil or not __TS__ArrayIncludes(validOptions, selected) do
+    while selected == nil or not validOptions:includes(selected) do
         print("Invalid option. Please select a mode:\t")
         selected = tonumber(io.read())
     end
@@ -41,10 +39,7 @@ local function setup(self)
     if selected == 3 then
         print("Is this station a main hub that can spawn new trains? [ y / N ]: ")
         local input = io.read()
-        while input ~= nil and not __TS__ArrayIncludes(
-            {"y", "n"},
-            string.lower(input)
-        ) do
+        while input ~= nil and not ({"y", "n"}):includes(string.lower(input)) do
             print("Invalid option. Please enter either y or n: ")
             input = io.read()
         end
@@ -52,23 +47,26 @@ local function setup(self)
     end
     io.write(
         "/home/.config/stationcontrol.json",
-        encode(config)
+        encode(nil, config)
     )
     return selected
 end
 local function main(self)
     local mode = -1
-    if not cfs.exists("/home/.config") then
+    if not cfs:exists("/home/.config") then
         print("Config directory doesn't exist. Creating it...")
         os.execute("mkdir -p /home/.config")
     else
         print("Config directory already exists. Checking for config file...")
     end
-    if not cfs.exists("/home/.config/stationcontrol.json") then
+    if not cfs:exists("/home/.config/stationcontrol.json") then
         mode = setup(nil)
     else
         print("Station Control is already installed...")
-        local jsonConfig = decode(readFile(nil, "stationcontrol.json"))
+        local jsonConfig = decode(
+            nil,
+            readFile(nil, "stationcontrol.json")
+        )
         mode = jsonConfig.mode
     end
     repeat

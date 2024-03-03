@@ -39,3 +39,6 @@ dist/*.map
 
 # ignore yarn.lock
 yarn.lock
+
+# Ignore ocelot emulator
+*/ocelot/*

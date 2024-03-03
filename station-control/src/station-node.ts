@@ -1,5 +1,11 @@
 import { front, back, left, right, top, bottom } from "sides";
 import * as component from "component";
+import { encode, decode } from "json";
+import { pull, listen } from "event";
+
+const cfs = component.filesystem;
+
+const mainprog = require('main');
 
 interface MappedInputs {
     [key: string]: number;
@@ -46,7 +52,7 @@ function getSideWithInput(redstone: OC.Components.Redstone): number {
 function configureRedstoneInputs() {
     if (!component.isAvailable("redstone")) {
         print("No redstone IO found. Please connect a Redstone IO block to the network and restart.")
-        return false;
+        return null;
     }
     const redstone = component.redstone;
     const inputsNeeded: string[] = ["trainReady","sendTrain","requestTrain"];
@@ -64,13 +70,40 @@ function configureRedstoneInputs() {
         print(`${key}: ${value}`)
     }
 
-    return true;
+    return mappedInputs;
 }
 
-function startup() {
-    configureRedstoneInputs();
+function startup(config: any) {
+    
 }
+
+function setup() {
+    if (!component.isAvailable("tunnel")) {
+        print("Linked card not found. Please install a linked card and restart.");
+        return null; 
+    }
+    const tunnel: any = component.tunnel;
+    print(`Please enter (only) the name of this station: e.g. <Name> Station.`)
+    const stationName = io.read()
+    const outputs = configureRedstoneInputs();
+    // Request new stationId
+    tunnel.send("stationcontrol:requeststationid", stationName);
+    tunnel.send("stationcontrol:requestlinelist")
+    // Wait for response
+    const [_, __, from, port, ___, message] = pull("modem_message");
+    if (from == tunnel.address) {
+        print(`Received response: ${message}`);
+    }
+
+}
+    
 
 export function main() {
-    startup();
+    let jsonConfig: any
+    if (!cfs.exists('/home/.config/station-node.json')) {
+        jsonConfig = setup();
+    } else {
+        jsonConfig = decode(mainprog.readFile('station-node.json')!);
+    }
+    startup(jsonConfig);
 }
